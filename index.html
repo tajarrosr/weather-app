@@ -3,13 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+    <title>Philippine Weather App</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Weather App</h1>
-    <input type="text" id="city" placeholder="Enter a name of a City" />
-    <button id="search">Get Weather</button>
-    <div id="result"></div>
+    <div class="container">
+      <div class="header">
+        <h1 class="app-title">
+          Philippine Weather
+          <span class="philippines-flag"></span>
+        </h1>
+      </div>
+
+      <div class="datetime-display">
+        <div class="current-time" id="currentTime"></div>
+        <div class="current-date" id="currentDate"></div>
+      </div>
+
+      <div class="input-section">
+        <div class="input-container">
+          <input
+            type="text"
+            id="cityInput"
+            placeholder="Enter a Philippine city (e.g., Manila, Cebu, Davao)"
+            autocomplete="off"
+          />
+        </div>
+        <button id="searchBtn">Get Weather</button>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Fetching weather data...</p>
+      </div>
+
+      <div class="error-message" id="errorMessage"></div>
+
+      <div class="weather-container" id="weatherContainer">
+        <div class="weather-city" id="weatherCity"></div>
+        <div class="weather-main">
+          <div class="temperature" id="temperature"></div>
+          <div>
+            <div class="weather-description" id="weatherDescription"></div>
+          </div>
+        </div>
+        <div class="weather-details">
+          <div class="detail-item">
+            <div class="detail-label">Feels Like</div>
+            <div class="detail-value" id="feelsLike"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Humidity</div>
+            <div class="detail-value" id="humidity"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Wind Speed</div>
+            <div class="detail-value" id="windSpeed"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Pressure</div>
+            <div class="detail-value" id="pressure"></div>
+          </div>
+        </div>
+        <div class="time-frame">
+          Current weather conditions as of <span id="weatherTime"></span>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
 </html>
