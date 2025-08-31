@@ -21,8 +21,8 @@ const philippineCities = [
     'omar', 'tipo-tipo', 'sapa-sapa', 'tapul', 'turtle islands'
 ];
 
-// API configuration - You need to get your own API key from OpenWeatherMap
-const API_KEY = '997466d7ad2c074dcc12aafb8b3d7c41'; // Replace with your actual API key
+// API configuration
+const API_KEY = 'api_key'; // Replace with your actual API key, get from https://openweathermap.org/
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
 // DOM elements
@@ -34,12 +34,10 @@ const weatherContainer = document.getElementById('weatherContainer');
 const currentTime = document.getElementById('currentTime');
 const currentDate = document.getElementById('currentDate');
 
-// Initialize the app
 function initApp() {
     updateDateTime();
-    setInterval(updateDateTime, 1000); // Update time every second
+    setInterval(updateDateTime, 1000); 
     
-    // Event listeners
     searchBtn.addEventListener('click', handleWeatherSearch);
     cityInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -80,26 +78,22 @@ function isPhilippineCity(city) {
     return philippineCities.includes(normalizedCity);
 }
 
-// Show error message
 function showError(message) {
     errorMessage.textContent = message;
     errorMessage.style.display = 'block';
     weatherContainer.style.display = 'none';
 }
 
-// Hide error message
 function hideError() {
     errorMessage.style.display = 'none';
 }
 
-// Show loading state
 function showLoading() {
     loading.style.display = 'block';
     searchBtn.disabled = true;
     searchBtn.textContent = 'Loading...';
 }
 
-// Hide loading state
 function hideLoading() {
     loading.style.display = 'none';
     searchBtn.disabled = false;
@@ -125,7 +119,6 @@ async function fetchWeatherData(city) {
 
 // Display weather data
 function displayWeatherData(weatherData) {
-    // Extract weather information
     const cityName = weatherData.name;
     const country = weatherData.sys.country;
     const temperature = Math.round(weatherData.main.temp);
@@ -154,7 +147,6 @@ function displayWeatherData(weatherData) {
     });
     document.getElementById('weatherTime').textContent = timeString;
 
-    // Show weather container and hide error
     weatherContainer.style.display = 'block';
     hideError();
 }
@@ -163,19 +155,16 @@ function displayWeatherData(weatherData) {
 async function handleWeatherSearch() {
     const city = cityInput.value.trim();
     
-    // Validate input
     if (!city) {
         alert('Please enter a city name');
         return;
     }
     
-    // Check if city is in the Philippines
     if (!isPhilippineCity(city)) {
         showError('Please enter a valid Philippine city. Examples: Manila, Cebu, Davao, Baguio');
         return;
     }
     
-    // Show loading state
     showLoading();
     hideError();
     
@@ -183,18 +172,14 @@ async function handleWeatherSearch() {
         // Fetch weather data
         const weatherData = await fetchWeatherData(city);
         
-        // Display weather data
         displayWeatherData(weatherData);
         
     } catch (error) {
-        // Show error message
         showError(error.message);
         console.error('Weather fetch error:', error);
     } finally {
-        // Hide loading state
         hideLoading();
     }
 }
 
-// Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', initApp);
